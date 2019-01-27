@@ -1,0 +1,71 @@
+<div class="slider" id="home">
+            <div class="callbacks_container">
+                <ul class="rslides" id="slider">
+                    <li>
+                        <div class="w3layouts-banner-top w3layouts-banner-top1">
+                            <div class="banner-dott">
+                                <div class="container">
+                                    <div class="slider-info">
+                                        <div class="col-md-8  slider-info-txt">
+                                            <h2>Comptes en ligne faciles pour les clients</h2>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+                <div class="clearfix"></div>
+                <div class="main add" id="thisDiv">
+                <h2>Se connecter</h2>
+                <form id="form" ng-submit ="vm.login()">
+                    <h5>Choisissez votre situation</h5>
+                    <select class="form-control" id="typeC" ng-model="vm.typeClient">
+                        <option value="particulier" >Particulier</option>
+                        <option value="professionnel">Professionnel</option>
+                        <option value="conseiller">Conseiller</option>
+                    </select> 
+                    <br/>
+                    <h5 class="mt-1">Identifiant</h5>
+                    <input type="text" Placeholder="Numéro de compte" required=""  ng-model="vm.numero_compte">
+                    <h5>Mot de passe</h5>
+                    <input type="password" Placeholder="Mot de passe"  required="" ng-model="vm.password">
+                    <input type="hidden" value="index" ng-model="vm.page">
+                    <input type="hidden" value="${state}" ng-model="vm.state">
+                    <input type="submit"  value="Se connecter" >
+                    <h5 class="mt-1">Vous avez saisi: {{vm.numero_compte}} </h5>
+
+                <!--    <script type="text/javascript">
+                                        if (document.forms["form"]["state"] !== null) {
+                                            var s = document.forms["form"]["state"].value;
+                                            if (s === "connected") {
+                                                document.getElementById("thisDiv").innerHTML = "<h2>${name}</h2>";
+                                                document.getElementById("thisLi").innerHTML = "<a class='active' href='disconnect.htm'>Se déconnecter</a>";
+                                            }
+                                        }
+                    </script> -->
+                </form>
+            </div>
+    
+ <!--   <h2>Login</h2> -->
+   <!-- <form name="form" ng-submit="vm.login()" role="form">
+        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="form-control" ng-model="vm.username" required />
+            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" ng-model="vm.password" required />
+            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Login</button>
+            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a href="#!/register" class="btn btn-link">Register</a>
+        </div>
+    </form> -->
+</div>
