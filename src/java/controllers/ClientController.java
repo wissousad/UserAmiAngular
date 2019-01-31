@@ -6,10 +6,14 @@
 package controllers;
 
 import dao.CompteEntity;
+import dao.ConseillerEntity;
 import dao.ParticulierDAO;
 import dao.ParticulierEntity;
 import dao.ProfessionnelEntity;
 import dao.TransactionEntity;
+import dao.ProfessionnelDAO;
+import dao.ConseillerDAO;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,13 +57,15 @@ public class ClientController {
     //DAO 
     @Autowired
     private ParticulierDAO particulierDAO;
+    @Autowired
+    private ProfessionnelDAO professionnelDAO;
+    @Autowired
+    private ConseillerDAO conseillerDAO;
 
     public void setParticulierDAO(ParticulierDAO particulierDAO) {
         this.particulierDAO = particulierDAO;
     }
 
-
-    
     //session
     static HttpSession session;
 
@@ -81,22 +87,45 @@ public class ClientController {
 
     @RequestMapping(value = "getClient", method = RequestMethod.POST)
     public ResponseEntity<?> getClient(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
-        System.out.println("********************************************* I'm alive  ****************************");
-        Logger logger = Logger.getLogger(getClass().getName());
-        logger.fine("********************************************* I'm alive  ****************************");
         JSONObject jObj = requestToJSONObj(request);
+        System.out.println("***********************requete JSON************************");
+        System.out.println(jObj);
+
+        String typeClient = jObj.getString("typeClient");
+        System.out.println("*************************typeClient = " + typeClient);
         Long numero_compte = Long.valueOf(jObj.getString("numero_compte"));
-        //String password = jObj.getString("password");
-        System.out.println("********************************************* I'm alive  ****************************");
-        ParticulierEntity particulier = particulierDAO.find(numero_compte);
-        if (particulier !=null) {
-            String clientResponse = particulier.loginPassToJSON();
-            System.out.println("********************************************* true  user ****************************");
-            return new ResponseEntity(clientResponse, HttpStatus.OK);
-        } else {
-            System.out.println("********************************************* false  user ****************************");
+        switch (typeClient) {
+            case "particulier": {
+                ParticulierEntity client = particulierDAO.find(numero_compte);
+                if (client != null) {
+                    System.out.println("************particuluer***********");
+                    String clientResponse = client.loginPassToJSON();
+                    return new ResponseEntity(clientResponse, HttpStatus.OK);
+                }
+                break;
+            }
+            case "professionnel": {
+                ProfessionnelEntity client = professionnelDAO.find(numero_compte);
+                if (client != null) {
+                    String clientResponse = client.loginPassToJSON();
+                    return new ResponseEntity(clientResponse, HttpStatus.OK);
+                }
+                break;
+            }
+            case "conseiller": {
+                ConseillerEntity client = conseillerDAO.find(numero_compte);
+                if (client != null) {
+                    String clientResponse = client.loginPassToJSON();
+                    return new ResponseEntity(clientResponse, HttpStatus.OK);
+                }
+                break;
+            }
+            default:
+                break;
         }
+
         return new ResponseEntity("[]", HttpStatus.OK);
+
     }
 
 //    @RequestMapping(value = "/", method = RequestMethod.POST)

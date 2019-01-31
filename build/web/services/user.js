@@ -28,7 +28,7 @@
             console.log('get all users');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/getAll.htm',
+            url : 'http://localhost:8089/banque2/getAll.htm',
             method : "POST",
             data : {
                 'numero_compte' : numero_compte
@@ -51,7 +51,7 @@
             console.log('get all friends');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/getAllFriends.htm',
+            url : 'http://localhost:8089/banque2/getAllFriends.htm',
             method : "POST",
             data : {
                 'numero_compte' : numero_compte
@@ -70,15 +70,15 @@
                 return deferred.promise;
         }
         
-        function GetByName(numero_compte, password) {
+        function GetByName(numero_compte, typeClient) {
             console.log('get User 2');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/getClient.htm',
+            url : 'http://localhost:8089/banque2/getClient.htm',
             method : "POST",
             data : {
                 'numero_compte' : numero_compte,
-                'password' : password
+                'typeClient' : typeClient
             }
             }).then(
                         function (response) {
@@ -91,6 +91,8 @@
                             var user = null;
                            deferred.resolve(user);
                            console.log('bad response');
+                           console.log('errResponse is '+errResponse);
+
                         }
                     );
                 return deferred.promise;
@@ -109,7 +111,7 @@
             console.log('Creating User');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/userCreate.htm',
+            url : 'http://localhost:8089/banque2/userCreate.htm',
             method : "POST",
             data : {
                 'numero_compte' : user.numero_compte,
@@ -134,7 +136,7 @@
            console.log('Creating User');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/userUpdate.htm',
+            url : 'http://localhost:8089/banque2/userUpdate.htm',
             method : "PUT",
             data : {
                 'numero_compte' : user.numero_compte,
@@ -160,7 +162,7 @@
            console.log('Delete User');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/userDelete.htm',
+            url : 'http://localhost:8089/banque2/userDelete.htm',
             method : "POST",
             data : {
                 'numero_compte' : id
@@ -182,7 +184,7 @@
             console.log('Add Friend');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/addFriend.htm',
+            url : 'http://localhost:8089/banque2/addFriend.htm',
             method : "POST",
             data : {
                 'numero_compte' : id1,
@@ -207,7 +209,7 @@
         {console.log('Delete Friend');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8080/banque2/addFriend.htm',
+            url : 'http://localhost:8089/banque2/addFriend.htm',
             method : "POST",
             data : {
                 'numero_compte' : id1,

@@ -151,5 +151,13 @@ public class ConseillerEntity implements Serializable {
     public String toString() {
         return "dao.ConseillerEntity[ id=" + id + " ]";
     }
-
+ public String toJSON()
+    {
+         return "{ \"numero_compte\":"+"\""+ id +"\""+",\"password\":"
+                 +"\""+ password +"\""+",\"nom\":"+"\"" + nom +"\"}";
+    }
+     public String loginPassToJSON()
+    {
+        return "{ \"numero_compte\":"+"\""+id+"\""+",\"password\":"+"\""+password+"\""+"}";
+    }
 }

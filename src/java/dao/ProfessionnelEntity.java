@@ -172,5 +172,13 @@ public class ProfessionnelEntity implements Serializable {
     public String toString() {
         return "dao.ProfessionnelEntity[ id=" + id + " ]";
     }
-
+ public String toJSON()
+    {
+         return "{ \"numero_compte\":"+"\""+ id +"\""+",\"password\":"
+                 +"\""+ password +"\""+",\"nom\":"+"\"" + nom +"\"}";
+    }
+     public String loginPassToJSON()
+    {
+        return "{ \"numero_compte\":"+"\""+id+"\""+",\"password\":"+"\""+password+"\""+"}";
+    }
 }

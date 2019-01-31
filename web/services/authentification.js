@@ -15,9 +15,9 @@
  
         return service;
  
-        function Login(numero_compte, password, callback) {
+        function Login(numero_compte,password,typeClient, callback) {
                 var response;
-                UserService.GetByName(numero_compte, password)
+                UserService.GetByName(numero_compte, typeClient)
                     .then(function (user) {
                         if (user !== null) {
                             if (user.password === password) {
@@ -25,10 +25,8 @@
                             }
                             else {
                                 response = { success: false, message: 'Erreur login / Mot de passe' };
-                                console.log('user.password is '+ user.password);
-                                console.log('password in param is:' +password);
-                                console.log('num_compte is: '+user.numero_compte);
-                                console.log('username is: '+user.username);
+                                console.log('user.password ' +user.password);
+                                console.log('password '+password);
                             }
                         }
                         else {
