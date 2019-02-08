@@ -1,17 +1,11 @@
-        <!-- welcome -->
 <div class="services" id="info_compte">
             <div class="container">
-
                 <div class="w3-heading-all">
                     <h4>${result}</h4>
-
                     <h3>Informations Comptes Personnels</h3>
                 </div>
                 <div class="welcome-grids">
-
                     <div class="col-md-12 welcome-w3left">
-
-                        <!-- table info compte -->
                         <table class="table">
                             <thead class="bg-primary small">
                             <th>Type de compte</th>
@@ -22,31 +16,19 @@
 
                             </thead>
                             <tbody>
-                                <c:forEach items="{comptes}"  var="compte" >
-
-                                    <tr class="bg-info">
-                                        <td>${compte.type}</td>
-                                        <td>${compte.id}</td>
-                                        <td>${compte.solde}</td>
+                                    <tr class="bg-info" ng-repeat="c  in comptes">
+                                        <td>{{c.type}}</td>
+                                        <td>{{c.id}}</td>
+                                        <td>{{c.solde}}</td>
                                         <td>EUR</td>
                                         <td>
-                                            <form action="transactions.htm" method="POST">
-                                                <input type="hidden" name="idCompte" value="${compte.id}">
-                                                <input type="submit" value="Details de Compte">
-                                            </form>
+                                          <input type="button" value="Details de Compte" ng-click="vm.loadTransactions(comptes[$index].id)">  
                                         </td>
                                     </tr>
-
-                                </c:forEach>
-
                             </tbody>
-
                         </table>
-                        <!-- table info compte -->
-
                     </div> 
                 </div>
                 <div class="clearfix"></div>
             </div>
 </div>
-        <!-- //welcome -->

@@ -134,5 +134,10 @@ public class TransactionEntity implements Serializable {
     public String toString() {
         return "dao.TransactionEntity[ id=" + id + " ]";
     }
+     public String toJSON()
+    {
+         return "{ \"id\":"+"\""+ id +"\""+",\"date\":"
+                 +"\""+ date +"\""+",\"contenu\":"+"\"" + contenu +"\""+",\"somme\":"+"\"" + somme + "\"}";
+    }
 
 }

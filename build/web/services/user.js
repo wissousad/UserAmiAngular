@@ -11,7 +11,6 @@
         
         var service = {};
  
-        service.GetAll = GetAll;
         service.GetAllFriends = GetAllFriends;
         service.GetByName = GetByName;
         
@@ -21,26 +20,27 @@
         
         service.AddFriend = AddFriend;
         service.DeleteFriend = DeleteFriend;
-        
+        service.GetTransactions = GetTransactions;
+
         return service;
  
-        function GetAll(numero_compte) {
-            console.log('get all users');
+        function GetTransactions(idCompte) {
+            console.log('get transactions');
             var deferred = $q.defer();
             $http({
-            url : 'http://localhost:8089/banque2/getAll.htm',
+            url : 'http://localhost:8089/banque2/getTransactions.htm',
             method : "POST",
             data : {
-                'numero_compte' : numero_compte
+                'idCompte' : idCompte
             }
             }).then(
                         function (response) {
-                            var users = response.data; // liste d'utilisateurs en json
-                            console.log('users:'+users);
-                            deferred.resolve(users);
+                            var transactions = response.data;  // liste de transaction en json
+                            console.log('transactions:'+transactions);
+                            deferred.resolve(transactions);
                         },
                         function (errResponse) {
-                           console.error('Error while getting User : '+errResponse.data.errorMessage);
+                           console.error('Error while getting transactions : '+errResponse.data.errorMessage);
                            deferred.reject(errResponse);
                         }
                     );
@@ -96,15 +96,6 @@
                         }
                     );
                 return deferred.promise;
-
-//           return $http.post('/client').then(
-//                       function(response){
-//                           return response.data;
-//                       },
-//                       function (errResponse){
-//                           return $q.reject(errResponse);
-//                       }
-//                   );
         }
  
         function Create(user) {

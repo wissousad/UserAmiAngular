@@ -21,7 +21,8 @@
         function login() {
             AuthenticationService.Login(vm.numero_compte,vm.password, vm.typeClient, function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.numero_compte,vm.password ,vm.typeClient);
+                    AuthenticationService.SetCredentials(vm.numero_compte, vm.password);
+                  //  AuthenticationService.SetCredentials(vm.numero_compte,vm.password ,vm.typeClient);
                     FlashService.Success('Utilisateur connecté', true);
                     $location.path('/client');
                 } else {

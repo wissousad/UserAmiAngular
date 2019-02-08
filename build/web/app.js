@@ -2,43 +2,52 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies'])
-        .config(config)
-        .run(run);
+            .module('app', ['ngRoute', 'ngCookies'])
+            .config(config)
+            .run(run);
 
     config.$inject = ['$routeProvider'];
     function config($routeProvider) {
         $routeProvider
-            .when('/', {
-                controller: 'LoginController',
-                templateUrl: 'login.html',
-                controllerAs: 'vm'
-            })
+                .when('/', {
+                    controller: 'LoginController',
+                    templateUrl: 'login.html',
+                    controllerAs: 'vm'
+                })
 
-            .when('/login', {
-                controller: 'LoginController',
-                templateUrl: 'login.html',
-                controllerAs: 'vm'
-            })
-            
-            .when('/client', {
-                controller: 'HomeController',
-                templateUrl: 'client.html',
-                controllerAs: 'vm'
-            })
-            .when('/register', {
-                controller: 'RegisterController',
-                templateUrl: 'register.html',
-                controllerAs: 'vm'
-            })
+                .when('/login', {
+                    controller: 'LoginController',
+                    templateUrl: 'login.html',
+                    controllerAs: 'vm'
+                })
 
-            .otherwise({ redirectTo: '/login' });
+                .when('/client', {
+                    controller: 'HomeController',
+                    templateUrl: 'client.html',
+                    controllerAs: 'vm'
+                })
+                .when('/register', {
+                    controller: 'RegisterController',
+                    templateUrl: 'register.html',
+                    controllerAs: 'vm'
+                })
+                .when('/transactions', {
+                    controller: 'TransactionsController',
+                    templateUrl: 'transactions.html',
+                    controllerAs: 'vm'
+                })
+                .when('/virement', {
+                    controller: 'VirementController',
+                    templateUrl: 'virement.html',
+                    controllerAs: 'vm'
+                })
+                .otherwise({redirectTo: '/login'});
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-    
+
     function run($rootScope, $location, $cookies, $http) {
-        
+
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
         if ($rootScope.globals.currentUser) {

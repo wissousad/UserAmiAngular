@@ -1,0 +1,26 @@
+        <div class="services" id="info_compte">
+            <div class="container">
+                <div class="w3-heading-all">
+                    <h3>${message} ${idCompte}</h3>
+                </div>
+                <div class="welcome-grids">
+                    <div class="col-md-12 welcome-w3left">
+                        <table class="table">
+                            <thead class="bg-primary small">
+                            <th>Opération</th>
+                            <th>Montant</th>
+                            <th>Date</th>
+                            </thead>
+                            <tbody>
+                                    <tr class="bg-info" ng-repeat="t  in transactions" >
+                                        <td>{{t.contenu}}</td>
+                                        <td>{{t.somme}}</td>
+                                        <td>{{t.date}}</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>

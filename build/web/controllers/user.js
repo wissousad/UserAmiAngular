@@ -2,78 +2,39 @@
     'use strict';
 
     angular
-        .module('app')
-        .controller('HomeController', HomeController);
+            .module('app')
+            .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['UserService', '$rootScope', '$location', 'AuthenticationService', 'FlashService'];
-    function HomeController(UserService, $rootScope, $location, AuthenticationService, FlashService) {
-        
+    HomeController.$inject = ['UserService', '$rootScope', '$location'];
+    function HomeController(UserService, $rootScope, $location) {
+
         var vm = this;
+        loadAccounts();
+        vm.loadTransactions = loadTransactions;
 
-//        vm.user = null;
-//        vm.allUsers = [];
-//        vm.allFriends = [];
-//       
-//        vm.deleteUser = deleteUser;
-//        vm.addFriend = addFriend;
-//        vm.deleteFriend = deleteFriend;
-//        
-//        initController();
-
-        function initController() {
-            loadCurrentUser();
-            loadAllUsers();
-            loadAllFriends();
-        }
-
-        function loadCurrentUser() {
-            UserService.GetByName($rootScope.globals.currentUser.username)
-                .then(function (user) {
-                    vm.user = user;
-                });
-        }
-
-        function loadAllUsers() {
-            UserService.GetAll($rootScope.globals.currentUser.username)
-                .then(function (users) {
-                    vm.allUsers = users;
-                });
-        }
-        
-        function loadAllFriends() {
-            UserService.GetAllFriends($rootScope.globals.currentUser.username)
-                .then(function (users) {
-                    vm.allFriends = users;
-                });
-        }
-
-        function deleteUser(id) {
-          
-            UserService.Delete(id)
-            .then(function () {
-                 AuthenticationService.ClearCredentials();
-                 FlashService.Success('Compte supprimé', true);
-                 $location.path('/login');
+        // afficher comptes dans ng-repeat
+        function loadAccounts() {
+            $rootScope.comptes = [];
+            console.log('my user is ' + $rootScope.user);
+            angular.forEach($rootScope.user.comptes, function (compte) {
+                $rootScope.comptes.push(compte);
             });
         }
-  
-        function addFriend(id) {
-             UserService.AddFriend($rootScope.globals.currentUser.username,id)
-             .then(function () {
-                loadAllFriends();
-             });
-         }
-        
-        //********
-        // Todo
-        //********
-         function deleteFriend(id) {
-             
-            UserService.deleteFriend($rootScope.globals.currentUser.username,id)
-             .then(function () {
-                loadAllFriends();
-             });
-         }
+        // charger les transactions d'un compte
+        function loadTransactions(idCompte) {
+
+            console.log('value of vm.idCompte ' + idCompte);
+            UserService.GetTransactions(idCompte)
+                    .then(function (transactions) {
+                        if (transactions !== null) {
+                            $rootScope.temp=transactions;
+                            // remplir les transaction dans ng-repeat
+                            $location.path('/transactions');
+                        } else {
+                            console.log('no transactions found');   // à changer après afficher une page avec message
+                        }
+                    });
+        }
     }
 
 })();

@@ -5,6 +5,10 @@
  */
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+
 import dao.CompteEntity;
 import dao.ConseillerEntity;
 import dao.ParticulierDAO;
@@ -16,6 +20,7 @@ import dao.ConseillerDAO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,8 +28,8 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +43,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import services.LoginService;
 import services.LoadInfoService;
 import services.VirementService;
+import net.sf.json.JSONSerializer;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
+import org.json.JSONObject;
 
 /**
  *
@@ -90,6 +99,10 @@ public class ClientController {
         JSONObject jObj = requestToJSONObj(request);
         System.out.println("***********************requete JSON************************");
         System.out.println(jObj);
+        List<CompteEntity> comptes;
+        String clientResponseStr;
+        JsonConfig jsonConfig;
+        net.sf.json.JSONObject clientResponseJObj;
 
         String typeClient = jObj.getString("typeClient");
         System.out.println("*************************typeClient = " + typeClient);
@@ -98,17 +111,30 @@ public class ClientController {
             case "particulier": {
                 ParticulierEntity client = particulierDAO.find(numero_compte);
                 if (client != null) {
-                    System.out.println("************particuluer***********");
-                    String clientResponse = client.loginPassToJSON();
-                    return new ResponseEntity(clientResponse, HttpStatus.OK);
+                    out.println("************particuluer***********");
+
+                    comptes = loadInfoService.partriculierGetComptes(numero_compte);
+                    clientResponseStr = client.loginPassToJSON();
+                    clientResponseJObj = net.sf.json.JSONObject.fromObject(clientResponseStr);
+                    jsonConfig = new JsonConfig();
+                    jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+                    clientResponseJObj.accumulate("comptes", comptes, jsonConfig);
+                    out.println("***********jSONArray************" + clientResponseJObj);
+                    return new ResponseEntity(clientResponseJObj + "", HttpStatus.OK);
                 }
                 break;
             }
             case "professionnel": {
                 ProfessionnelEntity client = professionnelDAO.find(numero_compte);
                 if (client != null) {
-                    String clientResponse = client.loginPassToJSON();
-                    return new ResponseEntity(clientResponse, HttpStatus.OK);
+                    clientResponseStr = client.loginPassToJSON();
+                    clientResponseJObj = net.sf.json.JSONObject.fromObject(clientResponseStr);
+                    comptes = loadInfoService.professionnelGetComptes(numero_compte);
+                    jsonConfig = new JsonConfig();
+                    jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+                    clientResponseJObj.accumulate("comptes", comptes, jsonConfig);
+                    out.println("***********jSONArray************" + clientResponseJObj);
+                    return new ResponseEntity(clientResponseJObj + "", HttpStatus.OK);
                 }
                 break;
             }
@@ -128,49 +154,41 @@ public class ClientController {
 
     }
 
-//    @RequestMapping(value = "/", method = RequestMethod.POST)
-//    public ResponseEntity<?> getUser1(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
-//
-//        JSONObject jObj = requestToJSONObj(request);
-//        Long numero_compte = Long.valueOf(jObj.getString("numero_compte"));
-//        String password = jObj.getString("password");
-//
-//        if (loginService.partriculierExistGetName(numero_compte, password) != null) {
-//            String userResponse = particulierEntity.loginPassToJSON();
-//            System.out.println("********************************************* true  user ****************************");
-//            return new ResponseEntity(userResponse, HttpStatus.OK);
-//        } else {
-//            System.out.println("********************************************* false  user ****************************");
-//
-//        }
-//        return new ResponseEntity("[]", HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "login", method = RequestMethod.POST)
-//    public ResponseEntity<?> getUser2(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
-//
-//        JSONObject jObj = requestToJSONObj(request);
-//        Long numero_compte = Long.valueOf(jObj.getString("numero_compte"));
-//        String password = jObj.getString("password");
-//
-//        if (loginService.partriculierExistGetName(numero_compte, password) != null) {
-//            String userResponse = particulierEntity.loginPassToJSON();
-//            System.out.println("********************************************* true  user ****************************");
-//            return new ResponseEntity(userResponse, HttpStatus.OK);
-//        } else {
-//            System.out.println("********************************************* false  user ****************************");
-//
-//        }
-//        return new ResponseEntity("[]", HttpStatus.OK);
-//    }
-// public ParticulierEntity JSONObjToUserMessage(JSONObject jObj) throws JSONException
-//       {
-//            String numero_compte = jObj.getString("numero_compte");
-//            String password = jObj.getString ("password");
-//            String nom = jObj.getString("nom");
-//            UserMessage u = new UserMessage(login,password,firstName,lastName);
-//            return u;
-//        }
+    @RequestMapping(value = "getTransactions", method = RequestMethod.POST)
+    public ResponseEntity<?> getTransactions(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
+        JSONObject jObj = requestToJSONObj(request);
+        System.out.println("***********************requete JSON**jobj**********************" + jObj);
+        // Long idCompte = Long.valueOf(jObj.getString("idCompte"));
+        Long idCompte = jObj.getLong("idCompte");
+        if ((loadInfoService.compteGetTransactions(idCompte).get(0)) != null) {
+            List<TransactionEntity> transactions = loadInfoService.compteGetTransactions(idCompte);
+            String tr="";
+            for (int i = 0; i < transactions.size(); i++) {
+                tr += transactions.get(i).toJSON() +" ,";
+            }
+            tr = tr.substring(0,tr.length()-2);
+            tr = "{ \"transactions\" : [ "+ tr + "] }";
+
+            
+//            net.sf.json.JSONObject clientResponseJObj = new net.sf.json.JSONObject();
+//            JsonConfig jsonConfig = new JsonConfig();
+//            jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+//            clientResponseJObj.accumulate("transactions", transactions, jsonConfig);
+//            out.println("***********jSONArray************" + clientResponseJObj);
+
+          /*  net.sf.json.JSONArray clientResponseArr = new net.sf.json.JSONArray();
+            JsonConfig jsonConfig = new JsonConfig();
+            jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+            clientResponseArr.addAll( transactions, jsonConfig);
+            String clientResponseJObj = "{ \"transactions\" : "+ clientResponseArr + "}";
+            System.out.println(clientResponseJObj);*/
+            System.out.println(tr);
+            return new ResponseEntity(tr, HttpStatus.OK);
+            
+        } else {
+            return new ResponseEntity("[]", HttpStatus.OK);
+        }
+    }
 //        
 //    @RequestMapping(value = "index", method = RequestMethod.GET)
 //    public ModelAndView initIndex() {
