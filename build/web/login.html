@@ -23,8 +23,8 @@
                 <h2>Se connecter</h2>
                 <form id="form" ng-submit ="vm.login()">
                     <h5>Choisissez votre situation</h5>
-                    <select class="form-control" id="typeC" ng-model="vm.typeClient">
-                        <option value="particulier">Particulier</option>
+                    <select class="form-control" id="typeC" ng-model="vm.typeClient" ng-init="vm.typeClient = 'particulier'">
+                        <option value="particulier" ng-init="">Particulier</option>
                         <option value="professionnel">Professionnel</option>
                         <option value="conseiller">Conseiller</option>
                     </select> 

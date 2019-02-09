@@ -162,21 +162,20 @@ public class ClientController {
         Long idCompte = jObj.getLong("idCompte");
         if ((loadInfoService.compteGetTransactions(idCompte).get(0)) != null) {
             List<TransactionEntity> transactions = loadInfoService.compteGetTransactions(idCompte);
-            String tr="";
+            String tr = "";
             for (int i = 0; i < transactions.size(); i++) {
-                tr += transactions.get(i).toJSON() +" ,";
+                tr += transactions.get(i).toJSON() + " ,";
             }
-            tr = tr.substring(0,tr.length()-2);
-            tr = "{ \"transactions\" : [ "+ tr + "] }";
+            tr = tr.substring(0, tr.length() - 2);
+            tr = "{ \"transactions\" : [ " + tr + "] }";
 
-            
 //            net.sf.json.JSONObject clientResponseJObj = new net.sf.json.JSONObject();
 //            JsonConfig jsonConfig = new JsonConfig();
 //            jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
 //            clientResponseJObj.accumulate("transactions", transactions, jsonConfig);
 //            out.println("***********jSONArray************" + clientResponseJObj);
 
-          /*  net.sf.json.JSONArray clientResponseArr = new net.sf.json.JSONArray();
+            /*  net.sf.json.JSONArray clientResponseArr = new net.sf.json.JSONArray();
             JsonConfig jsonConfig = new JsonConfig();
             jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
             clientResponseArr.addAll( transactions, jsonConfig);
@@ -184,11 +183,43 @@ public class ClientController {
             System.out.println(clientResponseJObj);*/
             System.out.println(tr);
             return new ResponseEntity(tr, HttpStatus.OK);
-            
+
         } else {
             return new ResponseEntity("[]", HttpStatus.OK);
         }
     }
+
+    @RequestMapping(value = "transfer", method = RequestMethod.POST)
+    public ResponseEntity<?> transfer(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
+        JSONObject jObj = requestToJSONObj(request);
+        System.out.println("***********************requete JSON**jobj**********************" + jObj);
+        Long idCompteSender = jObj.getLong("idCompteSender");
+        Long idCompteReceiver = jObj.getLong("idCompteReceiver");
+        int montant = jObj.getInt("montant");
+       // String typeClient = jObj.getString("typeClient");
+        String result;
+        if (!virementService.receiverExists(idCompteReceiver)) {
+            result = "Le compte destinataire n'existe pas!";
+
+        } else if (virementService.CompteGetSolde(idCompteSender) < montant) {
+            result = "Virement non reussi! le solde de votre compte est inferieur du montant a envoyer";
+        } else if (virementService.CompteGetPlafond(idCompteReceiver) != null && virementService.CompteGetSolde(idCompteReceiver) + montant > virementService.CompteGetPlafond(idCompteReceiver)) {
+            result = "Virement non reussi! le solde de votre compte destination risque de depasser le plafond";
+        } else if (virementService.CompteGetType(idCompteSender).equals("Livret") && virementService.CompteGetMinimum(idCompteSender) != null && virementService.CompteGetSolde(idCompteSender) - montant < virementService.CompteGetMinimum(idCompteSender)) {
+            result = "Virement non reussi! le solde de votre compte source risque dépasser le minimum";
+        } else {
+            virementService.insertTransactions(virementService.lastId(), idCompteSender, idCompteReceiver, montant);
+            virementService.insertIntoComptes(idCompteSender, idCompteReceiver, montant);
+            virementService.insertIntoComptesAndTransaction(idCompteSender, idCompteReceiver, montant, virementService.lastId());
+            result = "Success";
+        }
+        result = result.toUpperCase();
+        result = "{ \"message\" :  \"" + result + "\" }";
+        System.out.println("value of reponse "+result);
+        return new ResponseEntity(result, HttpStatus.OK);
+
+    }
+
 //        
 //    @RequestMapping(value = "index", method = RequestMethod.GET)
 //    public ModelAndView initIndex() {

@@ -127,4 +127,9 @@ public class VirementServiceImpl implements VirementService {
             return 1L;
         }
     }
+    
+     @Override
+    public boolean receiverExists(Long id) {
+        return compteDAO.find(id) != null;
+    }
 }

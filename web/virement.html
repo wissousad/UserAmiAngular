@@ -9,54 +9,26 @@
 
                 <div class="contact-form">
                     <h3>Virement entre comptes internes</h3>
-                    <form action="client.htm" method="post" id="myForm" name="myForm">
+                    <form id="myForm" name="myForm" ng-submit="vm.verifyForm()">
                         <h4>Depuis compte numéro: </h4>
                         <br/>
-                        <select  class="form-control" ng-model="vm.idCompteSender" ng-options="x for x in Ids"></select>                        
+                        <select  class="form-control" ng-model="vm.idCompteSender" ng-options="x for x in Ids" id="idCompteSender" ng-init=" vm.idCompteSender = Ids[0]"></select>                        
                         <br/>
                         <h4>Vers compte numéro: </h4>
                         <br/>
-                        <input class="form-control" type="number" required="" ng-model="vm.idCompteReceiver">
+                        <input class="form-control" type="number" required="" ng-model="vm.idCompteReceiver" id="idCompteReceiver">
                         <br/>
                         <h4>Montant:</h4>
                         <br/>
-                        <input class="form-control" type="number" name="montant" min="10" max="3000" placeholder="Montant" required="">
+                        <input class="form-control" type="number" min="10" max="3000" placeholder="Montant" required="" ng-model="vm.montant" id="montant">
                         <br/>
-                        <input type="hidden" value="virement" ng-model="vm.page">
+                       <!-- <input type="hidden" value="virement" ng-model="vm.page">
                         <input type="hidden" value="${idUser}" ng-model="vm.idUser">
-                        <input type="hidden" value="${typeUser}" ng-model="vm.typeUser">
+                        <input type="hidden" value="${typeUser}" ng-model="vm.typeUser"> -->
 
-                        <input type="button" value="Envoyer" id="btn" class="btn btn-info">
+                       <input type="submit" value="Envoyer" id="btn" class="btn btn-info">
 
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    
-                        <script type="text/javascript">
-                                            $(function () {
-                                                $("#btn").click(function (e) {
-                                                    var s = document.forms["myForm"]["idCompteSender"].value;
-                                                    var r = document.forms["myForm"]["idCompteReceiver"].value;
-                                                    var c = document.forms["myForm"]["montant"].value;
-                                                    if (c === null || c === "") {
-                                                        alert("Veuillez s'il vous plait remplir tous les champs.");
-                                                        return false;
-                                                    } else if (c > 3000) {
-                                                        alert("Champ mal remplit! Montant maximum par jour = 3000");
-                                                        return false;
-                                                    } else if (s === r) {
-                                                        alert("Champ mal remplit! Veuillez choisir des numéros de comptes différents");
-                                                        return false;
-                                                    } else if (c < 10) {
-                                                        alert("Champ mal remplit! Montant minimum = 10");
-                                                        return false;
-                                                    }
-                                                    if (confirm("Êtes vous sûr(e) de bien vouloir virer ce montant à ce compte?")) {
-                                                        console.log('Form is submitting');
-                                                        $("#myForm").submit();
-                                                    } else {
-                                                        console.log('User clicked no.');
-                                                    }
-                                                });
-                                            });
-                        </script>
                     </form>
                 </div>
             </div>

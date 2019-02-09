@@ -25,4 +25,6 @@ public interface VirementService {
 
     public Long lastId();
     public void insertIntoComptesAndTransaction(Long idSender, Long idReceiver, double montant, Long idTr);
+     public boolean receiverExists(Long id);
+    
 }
