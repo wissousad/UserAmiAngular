@@ -37,14 +37,15 @@
                     });
         }
 
-        function SetCredentials(numero_compte, password) {
+        function SetCredentials(numero_compte, password, typeClient) {
             $rootScope.globals = {
                 currentUser: {
                     numero_compte: numero_compte,
-                    password: password
+                    password: password,
+                    typeClient : typeClient
                 }
             };
-            console.log('currentUser: numero_compte:' + $rootScope.globals.currentUser.numero_compte + 'pass:' + $rootScope.globals.currentUser.password
+            console.log('currentUser: numero_compte:' + $rootScope.globals.currentUser.numero_compte + 'type:' + $rootScope.globals.currentUser.typeClient
                     );
             $cookies.putObject('globals', $rootScope.globals);
         }

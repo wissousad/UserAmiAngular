@@ -1,101 +1,154 @@
 <div id="footer">    
-<div class="wthree_copy_right">
-            <div class="container">
-                <p>© 2018 Bank lock. All rights reserved | Design by O,R</p>
-            </div>
-</div>
+    <div class="wthree_copy_right">
+        <div class="container">
+            <p>© 2018 Bank lock. All rights reserved | Design by O,R</p>
+        </div>
+    </div>
     <!-- //footer -->
-         <!-- template scripts -->
-   <!-- js-scripts -->					
-        <!-- js -->
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap --> 
-        <!-- //js -->	
+    <!-- template scripts -->
+    <!-- js-scripts -->					
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap --> 
+    <!-- //js -->	
 
-        <!-- start-smoth-scrolling -->
-        <script src="js/SmoothScroll.min.js"></script>
-        <script type="text/javascript" src="js/move-top.js"></script>
-        <script type="text/javascript" src="js/easing.js"></script>
-        <script type="text/javascript">
-                                jQuery(document).ready(function ($) {
-                                    $(".scroll").click(function (event) {
-                                        event.preventDefault();
-                                        $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
-                                    });
-                                });
-        </script>
-        <!-- here stars scrolling icon -->
-        <script type="text/javascript">
-                    $(document).ready(function () {
-                        /*
-                         var defaults = {
-                         containerID: 'toTop', // fading element id
-                         containerHoverID: 'toTopHover', // fading element hover id
-                         scrollSpeed: 1200,
-                         easingType: 'linear' 
-                         };
-                         */
+    <!-- start-smoth-scrolling -->
+    <script src="js/SmoothScroll.min.js"></script>
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
+    </script>
+    <!-- here stars scrolling icon -->  
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+             var defaults = {
+             containerID: 'toTop', // fading element id
+             containerHoverID: 'toTopHover', // fading element hover id
+             scrollSpeed: 1200,
+             easingType: 'linear' 
+             };
+             */
 
-                        $().UItoTop({easingType: 'easeOutQuart'});
+            $().UItoTop({easingType: 'easeOutQuart'});
 
-                    });
-        </script>
-        <!-- //here ends scrolling icon -->
-        <!-- start-smoth-scrolling -->
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+    <!-- start-smoth-scrolling -->
 
-        <!-- Baneer-js -->
-        <script src="js/responsiveslides.min.js"></script>
-        <script>
-                    $(function () {
-                        $("#slider").responsiveSlides({
-                            auto: true,
-                            pager: false,
-                            nav: true,
-                            speed: 1000,
-                            namespace: "callbacks",
-                            before: function () {
-                                $('.events').append("<li>before event fired.</li>");
-                            },
-                            after: function () {
-                                $('.events').append("<li>after event fired.</li>");
-                            }
-                        });
-                    });
-        </script>
-        <!-- //Baneer-js -->
-        <!-- js for Counter -->
-        <script type="text/javascript" src="js/numscroller-1.0.js"></script>
-        <!-- /js for Counter -->
-        <!-- carousal -->
-        <script src="js/slick.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript">
-                    $(document).on('ready', function () {
-                        $(".center").slick({
-                            dots: true,
-                            infinite: true,
-                            centerMode: true,
-                            slidesToShow: 2,
-                            slidesToScroll: 2,
-                            responsive: [
-                                {
-                                    breakpoint: 768,
-                                    settings: {
-                                        arrows: true,
-                                        centerMode: false,
-                                        slidesToShow: 2
-                                    }
-                                },
-                                {
-                                    breakpoint: 480,
-                                    settings: {
-                                        arrows: true,
-                                        centerMode: false,
-                                        centerPadding: '40px',
-                                        slidesToShow: 1
-                                    }
-                                }
-                            ]
-                        });
-                    });
-        </script>
+    <!-- Baneer-js -->
+
+
+    <!-- js for Counter -->
+    <script type="text/javascript" src="js/numscroller-1.0.js"></script>
+    <!-- /js for Counter -->
+
+    <script src="js/responsiveslides.min.js"></script>
+    <script>
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                pager: false,
+                nav: true,
+                speed: 1000,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+        });
+    </script>
+    <!-- //Baneer-js -->
+    <!-- js for Counter -->
+    <script type="text/javascript" src="js/numscroller-1.0.js"></script>
+    <!-- /js for Counter -->
+    <!-- carousal -->
+    <script src="js/slick.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(document).on('ready', function () {
+            $(".center").slick({
+                dots: true,
+                infinite: true,
+                centerMode: true,
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: true,
+                            centerMode: false,
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: true,
+                            centerMode: false,
+                            centerPadding: '40px',
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+    <!-- //js-scripts -->
+    <!-- pour les table -->
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+
+    <!-- DataTables JavaScript -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+            $('#dataTables-example2').DataTable({
+                responsive: true
+            });
+            var y = document.getElementById("myDIV2");
+            y.style.display = "none";
+
+        });
+
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+            var y = document.getElementById("myDIV2");
+
+            // y.style.display= "none";
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none";
+            } else {
+                x.style.display = "none";
+                y.style.display = "block";
+            }
+        }
+    </script>
+
+    <!-- pour les tables  -->
 </div>

@@ -60,5 +60,12 @@ public class CompteLivretEntity extends CompteEntity {
     public String getType(){
         return "Livret";
     }
-
+    
+    @Override
+ public String toJSON()
+    {
+         return "{ \"id\":"+"\""+ id +"\""+",\"plafond\":"
+                 +"\""+ plafond +"\""+",\"solde\":"+"\"" + solde +"\""+",\"type\":"+"\" Livret \"}";
+    }
+    
 }

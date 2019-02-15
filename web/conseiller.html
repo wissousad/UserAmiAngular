@@ -1,0 +1,87 @@
+<!--/table_client-->
+        <div class="services" id="table_cl_co">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+
+
+                        <div class=" panel-heading text-center w3ls-button">
+                            <a onclick="myFunction()">Table clients/comptes</a>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="myDIV">
+                                <div class="w3-heading-all">
+                                    <h3>Table de Client</h3>
+                                </div>
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead class="bg-info">
+                                        <tr>
+                                            <th>ID Client</th>
+                                            <th>Nom et prénom /Entreprise </th>
+                                            <th>Email</th>
+                                            <th>Teléphone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--    <c:forEach items="${particuliers}"  var="particulier" > -->
+
+                                            <tr class="odd gradeX" ng-repeat="pa  in particuliers">
+                                                <td>{{pa.id}}</td>
+                                                <td>{{pa.nom}} {{pa.prenom}}</td>
+                                                <td>{{pa.email}}</td>
+                                                <td>{{pa.tel}}</td>
+                                            </tr>
+                                    <!--    </c:forEach> -->
+                                       <!-- <c:forEach items="${professionnels}"  var="professionnel" > -->
+
+                                            <tr class="odd gradeX" ng-repeat="po  in professionnels">
+                                                <td>{{po.id}}</td>
+                                                <td>{{po.nom}} </td>
+                                                <td>{{po.email}}</td>
+                                                <td>{{po.tel}}</td>
+                                            </tr>
+                                  <!--      </c:forEach> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                            <!-- deuxieme table -->
+                            <div id="myDIV2">
+                                <div class="w3-heading-all">
+                                    <h3>Table de comptes</h3>
+                                </div>
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                    <thead class="bg-info">
+                                        <tr>
+                                            <th>ID du Compte</th>
+                                            <th>Type de Compte</th>
+                                            <th>Montant</th>
+                                            <th>Plafond</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       <!--  <c:forEach items="${comptes}"  var="compte" > -->
+
+                                            <tr class="odd gradeX" ng-repeat="c  in comptes">
+                                                <td>{{c.id}}</td>
+                                                <td>{{c.type}}</td>
+                                                <td>{{c.solde}}</td>
+                                                <td>{{c.plafond}}</td>
+                                            </tr>
+
+                                      <!--  </c:forEach> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- deuxieme table -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>

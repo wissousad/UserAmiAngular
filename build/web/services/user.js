@@ -93,7 +93,7 @@
             );
             return deferred.promise;
         }
-
+        // penser à changer numero_compte vers id partout
         function GetByName(numero_compte, typeClient) {
             console.log('get User 2');
             var deferred = $q.defer();
@@ -101,7 +101,7 @@
                 url: 'http://localhost:8089/banque2/getClient.htm',
                 method: "POST",
                 data: {
-                    'numero_compte': numero_compte,
+                    'numero_compte': numero_compte, 
                     'typeClient': typeClient
                 }
             }).then(

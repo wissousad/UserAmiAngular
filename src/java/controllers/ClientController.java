@@ -139,19 +139,59 @@ public class ClientController {
                 break;
             }
             case "conseiller": {
+                // ici numero_compte c'est l'id du conseiller, une appelation seulement
                 ConseillerEntity client = conseillerDAO.find(numero_compte);
                 if (client != null) {
-                    String clientResponse = client.loginPassToJSON();
-                    return new ResponseEntity(clientResponse, HttpStatus.OK);
+                    clientResponseStr = client.loginPassToJSON();
+                    clientResponseJObj = net.sf.json.JSONObject.fromObject(clientResponseStr);
+                    List<ProfessionnelEntity> professionnels = loadInfoService.conseillerGetProfessionnels(numero_compte);
+                    List<ParticulierEntity> particuliers = loadInfoService.conseillerGetParticuliers(numero_compte);
+                    List<CompteEntity> c;
+                    comptes = new ArrayList<>();
+                    for (int i = 0; i < professionnels.size(); i++) {
+                        c = loadInfoService.professionnelGetComptes(professionnels.get(i).getId());
+                        comptes.addAll(c);
+                        System.out.println("i");
+                    }
+                    for (int i = 0; i < particuliers.size(); i++) {
+                        c = loadInfoService.partriculierGetComptes(particuliers.get(i).getId());
+                        comptes.addAll(c);
+                        System.out.println("i");
+                        System.out.println("++++++++++++++++++");
+                    }
+                    jsonConfig = new JsonConfig();
+                    jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+                    clientResponseJObj.accumulate("comptes", comptes, jsonConfig);
+                    clientResponseJObj.accumulate("particuliers", particuliers, jsonConfig);
+                    clientResponseJObj.accumulate("professionnels", professionnels, jsonConfig);
+
+//                    String clientResponse = clientResponseJObj.toString();
+//                    System.out.println("++++ comptes +++++");
+//                    for (int i =0; i<comptes.size(); i++){
+//                        System.out.println(comptes.get(i).toJSON()); 
+//                    }
+//                    if (!comptes.isEmpty()) {
+//                        String cm = "";
+//                        for (int i = 0; i < comptes.size(); i++) {
+//                            cm = cm + comptes.get(i).toJSON() + " ,";
+//                        }
+//                        cm = cm.substring(0, cm.length() - 2);
+//                        cm = ", \"comptes\" : [ " + cm + "] }";
+//                        // enlever l'accolade de la fin
+//                        clientResponse = clientResponse.substring(0, clientResponse.length() - 2);
+//                        clientResponse += cm;
+                    out.println("***********jSONArray************" + clientResponseJObj);
+                    return new ResponseEntity(clientResponseJObj + "", HttpStatus.OK);
                 }
                 break;
             }
+
             default:
                 break;
         }
 
-        return new ResponseEntity("[]", HttpStatus.OK);
-
+        return new ResponseEntity(
+                "[]", HttpStatus.OK);
     }
 
     @RequestMapping(value = "getTransactions", method = RequestMethod.POST)
@@ -196,7 +236,7 @@ public class ClientController {
         Long idCompteSender = jObj.getLong("idCompteSender");
         Long idCompteReceiver = jObj.getLong("idCompteReceiver");
         int montant = jObj.getInt("montant");
-       // String typeClient = jObj.getString("typeClient");
+        // String typeClient = jObj.getString("typeClient");
         String result;
         if (!virementService.receiverExists(idCompteReceiver)) {
             result = "Le compte destinataire n'existe pas!";
@@ -215,7 +255,7 @@ public class ClientController {
         }
         result = result.toUpperCase();
         result = "{ \"message\" :  \"" + result + "\" }";
-        System.out.println("value of reponse "+result);
+        System.out.println("value of reponse " + result);
         return new ResponseEntity(result, HttpStatus.OK);
 
     }

@@ -41,6 +41,11 @@
                     templateUrl: 'virement.html',
                     controllerAs: 'vm'
                 })
+                 .when('/conseiller', {
+                    controller: 'HomeController',
+                    templateUrl: 'conseiller.html',
+                    controllerAs: 'vm'
+                })
                 .otherwise({redirectTo: '/login'});
     }
 

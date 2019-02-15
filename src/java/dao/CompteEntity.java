@@ -225,11 +225,17 @@ public class CompteEntity implements Serializable {
     public String toString() {
         return "dao.CompteEntity[ id=" + id + " ]";
     }
-    public String toJSON()
+//    public String toJSON()
+//    {
+//         return "{ \"id\":"+"\""+ id +"\""+",\"plafond\":"
+//                 +"\""+ plafond +"\""+",\"solde\":"+"\"" + plafond +"\"}";
+//    }
+    
+     public String toJSON()
     {
          return "{ \"id\":"+"\""+ id +"\""+",\"plafond\":"
-                 +"\""+ plafond +"\""+",\"solde\":"+"\"" + plafond +"\"}";
+                 +"\""+ plafond +"\""+",\"solde\":"+"\"" + solde +"\""+",\"type\":"+"\" Courant \"}";
     }
     
-   
+    
 }
