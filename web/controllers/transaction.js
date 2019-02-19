@@ -9,6 +9,7 @@
     function TransactionsController($rootScope) {
         
         fillTransactions(); 
+        changeHeader();
         
         function fillTransactions() {
            $rootScope.transactions = [];
@@ -19,6 +20,13 @@
                 console.log('value of transaction' +transaction);
                 
             });
+        }
+         function changeHeader() {
+                document.getElementById("li1").innerHTML = " <a class=' active' href='#!/login'>Accueil</a>";
+                document.getElementById("li2").innerHTML = "<a class=' active' href='#!/client'>Mes comptes</a>";
+                document.getElementById("li3").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnexter</a>";
+                document.getElementById("li4").innerHTML = "";
+            
         }
     }
 

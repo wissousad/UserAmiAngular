@@ -9,7 +9,9 @@
     function VirementController($rootScope, $location, UserService, FlashService) {
         var vm = this;
         fillCurrentUserAccounts();
+        changeHeader();
         vm.verifyForm = verifyForm;
+        
 
 
         function fillCurrentUserAccounts() {
@@ -66,6 +68,13 @@
                 console.log('value of id in Ids ' + compte.id);
                 $rootScope.Ids.push(compte.id);
             });
+        }
+        
+         function changeHeader() {
+                document.getElementById("li1").innerHTML = " <a class=' active' href='#!/login'>Accueil</a>";
+                document.getElementById("li2").innerHTML = "<a class=' active' href='#!/client'>Mes comptes</a>";
+                document.getElementById("li3").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnexter</a>";
+                document.getElementById("li4").innerHTML = "";
         }
     }
 

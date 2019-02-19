@@ -179,6 +179,7 @@ public class ProfessionnelEntity implements Serializable {
     }
      public String loginPassToJSON()
     {
-        return "{ \"numero_compte\":"+"\""+id+"\""+",\"password\":"+"\""+password+"\""+"}";
+        return "{ \"numero_compte\":"+"\""+id+"\""+",\"password\":"+"\""+password+"\""+",\"nom\":"+"\""+nom+"\""+"}";
+
     }
 }

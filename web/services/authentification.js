@@ -6,7 +6,7 @@
             .factory('AuthenticationService', AuthenticationService);
 
     AuthenticationService.$inject = ['$cookies', '$rootScope', 'UserService'];
-    function AuthenticationService($cookies, $rootScope, UserService) {
+    function AuthenticationService($cookies, $rootScope, UserService ) {
         var service = {};
 
         service.Login = Login;
@@ -24,7 +24,7 @@
                                 response = {success: true};
                                 console.log('user is ' + user);
                                 console.log('user accounts are ' + user.comptes);
-                                $rootScope.user=user;
+                                $rootScope.user = user;
                             } else {
                                 response = {success: false, message: 'Erreur login / Mot de passe'};
                                 console.log('user.password ' + user.password);
@@ -42,7 +42,7 @@
                 currentUser: {
                     numero_compte: numero_compte,
                     password: password,
-                    typeClient : typeClient
+                    typeClient: typeClient
                 }
             };
             console.log('currentUser: numero_compte:' + $rootScope.globals.currentUser.numero_compte + 'type:' + $rootScope.globals.currentUser.typeClient
@@ -52,6 +52,11 @@
 
         function ClearCredentials() {
             $cookies.remove('globals');
+            for (var prop in $rootScope) {
+                if (prop.substring(0, 1) !== '$') {
+                    delete $rootScope[prop];
+                }
+            }
         }
     }
 

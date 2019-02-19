@@ -46,6 +46,11 @@
                     templateUrl: 'conseiller.html',
                     controllerAs: 'vm'
                 })
+                .when('/disconnect', {
+                    controller: 'DisconnectController',
+                    templateUrl: 'login.html',
+                    controllerAs: 'vm'
+                })
                 .otherwise({redirectTo: '/login'});
     }
 

@@ -15,10 +15,13 @@
 
         // partie conseiller
         // fillClientsAccounts(); 
-        console.log("typeClient in global is "+$rootScope.globals.currentUser.typeClient);
+        console.log("typeClient in global is " + $rootScope.globals.currentUser.typeClient);
         if ($rootScope.globals.currentUser.typeClient === 'conseiller') {
             fillParticuliers();
             fillProfessionnels();
+            changeHeader(1);
+        } else {
+            changeHeader(2);
         }
 
         // afficher comptes dans ng-repeat
@@ -80,6 +83,20 @@
                 console.log('value of transaction' + professionnel);
 
             });
+        }
+
+        function changeHeader(user) {
+            if (user === 1)                 /* conseiller */ {
+                document.getElementById("li1").innerHTML = " <a class=' active' href='#!/login'>Accueil</a>";
+                document.getElementById("li2").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnexter</a>";
+                document.getElementById("li3").innerHTML = "";
+                document.getElementById("li4").innerHTML = "";
+            } else {
+                document.getElementById("li1").innerHTML = " <a class=' active' href='#!/login'>Accueil</a>";
+                document.getElementById("li2").innerHTML = "<a class=' active' href='#!/virement'>Virement</a>";
+                document.getElementById("li3").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnexter</a>";
+                document.getElementById("li4").innerHTML = "";
+            }
         }
     }
 
