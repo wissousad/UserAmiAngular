@@ -82,7 +82,7 @@ public class ClientController {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = request.getReader();
         try {
-            String str = null;
+            String str ;
             while ((str = br.readLine()) != null) {
                 sb.append(str);
             }

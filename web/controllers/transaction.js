@@ -24,7 +24,7 @@
          function changeHeader() {
                 document.getElementById("li1").innerHTML = " <a class=' active' href='#!/login'>Accueil</a>";
                 document.getElementById("li2").innerHTML = "<a class=' active' href='#!/client'>Mes comptes</a>";
-                document.getElementById("li3").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnexter</a>";
+                document.getElementById("li3").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnecter</a>";
                 document.getElementById("li4").innerHTML = "";
             
         }

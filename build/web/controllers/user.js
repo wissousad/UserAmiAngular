@@ -88,13 +88,13 @@
         function changeHeader(user) {
             if (user === 1)                 /* conseiller */ {
                 document.getElementById("li1").innerHTML = " <a class=' active' href='#!/login'>Accueil</a>";
-                document.getElementById("li2").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnexter</a>";
+                document.getElementById("li2").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnecter</a>";
                 document.getElementById("li3").innerHTML = "";
                 document.getElementById("li4").innerHTML = "";
             } else {
                 document.getElementById("li1").innerHTML = " <a class=' active' href='#!/login'>Accueil</a>";
                 document.getElementById("li2").innerHTML = "<a class=' active' href='#!/virement'>Virement</a>";
-                document.getElementById("li3").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnexter</a>";
+                document.getElementById("li3").innerHTML = "<a class=' active' href='#!/disconnect'>Se déconnecter</a>";
                 document.getElementById("li4").innerHTML = "";
             }
         }

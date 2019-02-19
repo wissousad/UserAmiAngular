@@ -6,7 +6,7 @@
             .factory('AuthenticationService', AuthenticationService);
 
     AuthenticationService.$inject = ['$cookies', '$rootScope', 'UserService'];
-    function AuthenticationService($cookies, $rootScope, UserService ) {
+    function AuthenticationService($cookies, $rootScope, UserService) {
         var service = {};
 
         service.Login = Login;
@@ -25,6 +25,8 @@
                                 console.log('user is ' + user);
                                 console.log('user accounts are ' + user.comptes);
                                 $rootScope.user = user;
+                                $rootScope.user.nom = user.nom;
+                                $rootScope.typeClient = user.typeClient;
                             } else {
                                 response = {success: false, message: 'Erreur login / Mot de passe'};
                                 console.log('user.password ' + user.password);
@@ -48,15 +50,26 @@
             console.log('currentUser: numero_compte:' + $rootScope.globals.currentUser.numero_compte + 'type:' + $rootScope.globals.currentUser.typeClient
                     );
             $cookies.putObject('globals', $rootScope.globals);
+            $rootScope.typeClient =$rootScope.globals.currentUser.typeClient;
         }
 
         function ClearCredentials() {
             $cookies.remove('globals');
+//            for (var prop in $rootScope) {
+//                if (prop.substring(0, 1) !== '$') {
+//                    delete $rootScope[prop];
+//                }
+//            }
             for (var prop in $rootScope) {
-                if (prop.substring(0, 1) !== '$') {
+
+                // Check is not $rootScope default properties, functions
+                if (typeof $rootScope[prop] !== 'function' && prop.indexOf('$') === -1 && prop.indexOf('$$') === -1) {
+
                     delete $rootScope[prop];
+
                 }
             }
+
         }
     }
 
